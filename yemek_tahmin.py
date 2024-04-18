@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
+import dill
+import joblib
 
 # Geniş modda başlatmak için set_page_config kullanın
 st.set_page_config(layout="wide",page_icon="🧊",page_title="Yemek Tarifleri Zorluk Tahmini ve Öneri Sistemi")
@@ -210,7 +212,10 @@ def tab1_zorluk_tahmin():
                         }
                 
                 import joblib
-                ensemble_model = joblib.load("ensemble_model_st.pkl")
+                # joblib ile çıkarılmış modeli yükle
+                with open('ensemble_model_st.pkl', 'rb') as f:
+                    ensemble_model = dill.load(f)
+                # ensemble_model = joblib.load("ensemble_model_st.pkl")
 
                 # Yeni tarifi DataFrame formatına dönüştür
                 new_recipe_df = pd.DataFrame(new_recipe, columns=ensemble_model.feature_names_in_, index=[0])
