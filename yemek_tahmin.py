@@ -210,7 +210,10 @@ def tab1_zorluk_tahmin():
                             'Fırın_Yemeği_Mi':firin
                         }
                 
-                ensemble_model = joblib.load("ensemble_model_st.pkl")
+                # ensemble_model = joblib.load("compress_model_streamlit.pkl.pkl")
+
+                with open("compress_model_streamlit.pkl", "rb") as f:
+                    ensemble_model = joblib.load(f)
 
                 # Yeni tarifi DataFrame formatına dönüştür
                 new_recipe_df = pd.DataFrame(new_recipe, columns=ensemble_model.feature_names_in_, index=[0])
