@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-import joblib
 
 # Geniş modda başlatmak için set_page_config kullanın
 st.set_page_config(layout="wide",page_icon="🧊",page_title="Yemek Tarifleri Zorluk Tahmini ve Öneri Sistemi")
@@ -21,7 +20,6 @@ def main():
         st.header("TARİF ZORLUK TAHMİNİ")
         tab1_zorluk_tahmin()
     with tab2:
-        global indexxx
         st.header("TARİF ÖNERİ SİSTEMİ")
         # Veri yükleme - Sadece bir kere yüklenecek
         @st.cache_resource
@@ -61,6 +59,7 @@ def main():
                     selected_recipe_ingredients = random_recipe['NER'].values[0]
                     selected_recipe_detail = random_recipe['Tarif'].values[0]
                     selected_recipe_index = random_recipe['Index'].values[0]
+                    selected_recipe_zorluk = random_recipe['Zorluk_Seviye'].values[0]
 
                     selected_recipe_text = f"{selected_recipe_name} {' '.join(selected_recipe_ingredients)}"
                     all_recipes_texts = [f"{name} {' '.join(ingredients)}" for name, ingredients in zip(df['Yemek_Adi'], df['NER'])]
@@ -70,36 +69,41 @@ def main():
                     most_similar_recipe_indices = cosine_similarities.argsort()[-4:-1][::-1]
                     most_similar_cosine_values = cosine_similarities[most_similar_recipe_indices]
 
+
                     st.subheader("Önerilen Tarif:")
-                    st.write("**Yemek Adı:**", selected_recipe_name.capitalize())
-                    st.write("**Malzemeler:**", selected_recipe_ingredients.capitalize())
+                    st.write("**Yemek Adı:**", selected_recipe_name)
+                    st.write("**Malzemeler:**", selected_recipe_ingredients)
                     st.write("**Tarif Detay:**", selected_recipe_detail)
                     st.write("**Index:**", selected_recipe_index)
+                    st.write("**Zorluk Seviye:**", selected_recipe_zorluk)
+
 
                     st.subheader("Benzer Tarifler:")
                     for idx, cosine_value in zip(most_similar_recipe_indices, most_similar_cosine_values):
                         st.write(f"""
-                            **Yemek Adı:** {df.iloc[idx]['Yemek_Adi'].capitalize()} \n
+                            **Yemek Adı:** {df.iloc[idx]['Yemek_Adi']} \n
                             **Benzerlik Oranı:** %{round(cosine_value*100,2)} \n
+
                             **Malzemeler:** {df.iloc[idx]['NER']} \n
-                            **Zorluk Seviyesi:** {df.iloc[idx]['NER']} \n
-                            
+
                             **Tarif:** {df.iloc[idx]['Tarif']} \n
+
                             **Tahmini DK:** {df.iloc[idx]['Toplam_Tarif_DK']} \n
                             {'**Fırın Derecesi:** ' + str(df.iloc[idx]['Fırın_Sıcaklığı']) if df.iloc[idx]['Fırın_Yemeği_Mi'] == 1 else ''} \n
                             **Index:** {int(df.iloc[idx]['Index'])} \n
+                            **Zorluk Seviyesi:** {df.iloc[idx]['Zorluk_Seviye']} \n
 
                             {'-' * 60} 
                         """)
                 else:
                     st.warning("Önce bir tarif getirin.")
 
-    # with tab3:
+    with tab3:
     #     # Teams renk şeması
     #     primary_color = "#0078D4"
     #     secondary_color = "#FFFFFF"
     #     accent_color = "#F3F2F1"
-    #     st.subheader("Algorizm aka FREGX Kim?")
+        st.subheader("Algorizm aka FREGX Kim?")
     #     # Tanıtım içeriği
     #     st.write("""
     #     Algorizm aka FREGX, bu uygulamanın arkasındaki zeki algoritma ve yapay zeka sistemidir. 
@@ -205,7 +209,7 @@ def tab1_zorluk_tahmin():
                             'Fırın_Yemeği_Mi':firin
                         }
                 
-                
+                import joblib
                 ensemble_model = joblib.load("ensemble_model_st.pkl")
 
                 # Yeni tarifi DataFrame formatına dönüştür
