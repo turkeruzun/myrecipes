@@ -81,6 +81,8 @@ def main():
                             **Yemek Adı:** {df.iloc[idx]['Yemek_Adi'].capitalize()} \n
                             **Benzerlik Oranı:** %{round(cosine_value*100,2)} \n
                             **Malzemeler:** {df.iloc[idx]['NER']} \n
+                            **Zorluk Seviyesi:** {df.iloc[idx]['NER']} \n
+                            
                             **Tarif:** {df.iloc[idx]['Tarif']} \n
                             **Tahmini DK:** {df.iloc[idx]['Toplam_Tarif_DK']} \n
                             {'**Fırın Derecesi:** ' + str(df.iloc[idx]['Fırın_Sıcaklığı']) if df.iloc[idx]['Fırın_Yemeği_Mi'] == 1 else ''} \n
@@ -203,7 +205,7 @@ def tab1_zorluk_tahmin():
                         }
                 
                 import joblib
-                ensemble_model = joblib.load("ensemble_compress.pkl")
+                ensemble_model = joblib.load("ensemble_model_st.pkl")
 
                 # Yeni tarifi DataFrame formatına dönüştür
                 new_recipe_df = pd.DataFrame(new_recipe, columns=ensemble_model.feature_names_in_, index=[0])
@@ -213,9 +215,9 @@ def tab1_zorluk_tahmin():
 
                 # Tahmin sonucunu gösterme
                 if new_recipe_difficulty_pred[0] == 0:
-                    st.success("Yeni tarifin zorluk seviyesi: Kolay")
+                    st.success("Yeni tarifin zorluk tahmini: Kolay")
                 else:
-                    st.error("Yeni tarifin zorluk seviyesi: Zor")
+                    st.error("Yeni tarifin zorluk tahmini: Zor")
             else:
                 st.warning("Lütfen tüm soruları cevaplayın.")
     # Sağ sütun (görsel)
@@ -233,7 +235,7 @@ def tab1_zorluk_tahmin():
     """, unsafe_allow_html=True)
 
     with col3:
-        st.markdown('<img src="https://themewagon.github.io/restoran/img/hero.png" class="rotating-image" width="600">', unsafe_allow_html=True)
+        st.markdown('<img src="https://themewagon.github.io/restoran/img/hero.png" class="rotating-image" width="580">', unsafe_allow_html=True)
         # st.image("img/yemek_sag.png", use_column_width=False, width=600)
 
 
