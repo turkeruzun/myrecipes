@@ -213,7 +213,7 @@ def tab1_zorluk_tahmin():
                 
                 import joblib
                 # joblib ile çıkarılmış modeli yükle
-                with open('ensemble_model_st.pkl', 'rb') as f:
+                with open('compress_model_streamlit.pkl', 'rb') as f:
                     ensemble_model = dill.load(f)
                 # ensemble_model = joblib.load("ensemble_model_st.pkl")
 
