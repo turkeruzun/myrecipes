@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-import dill
 import joblib
 
 # Geniş modda başlatmak için set_page_config kullanın
@@ -40,6 +39,7 @@ def main():
         if yemek_kategorisi and zorluk_derecesi:
             filtered_recipes = df[(df[yemek_kategorisi] == 1) & (df['Zorluk_Seviye'] == zorluk_derecesi)]
             if st.button("Rasgele Bir Tarif Getir"):
+                global random_recipe
                 if not filtered_recipes.empty:
                     random_recipe = filtered_recipes.sample(n=1)
                     st.subheader("Önerilen Tarif:")
@@ -210,7 +210,8 @@ def tab1_zorluk_tahmin():
                             'Fırın_Yemeği_Mi':firin
                         }
                 
-                ensemble_model = joblib.load("compress_model_streamlit.pkl")
+               
+                ensemble_model = joblib.load("ensemble_model_st.pkl")
 
                 # Yeni tarifi DataFrame formatına dönüştür
                 new_recipe_df = pd.DataFrame(new_recipe, columns=ensemble_model.feature_names_in_, index=[0])
