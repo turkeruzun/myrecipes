@@ -6,7 +6,6 @@ import joblib
 
 # Geniş modda başlatmak için set_page_config kullanın
 st.set_page_config(layout="wide",page_icon="🧊",page_title="Yemek Tarifleri Zorluk Tahmini ve Öneri Sistemi")
-# <img src="https://www.cdnlogo.com/logos/m/2/my-recipes.svg" alt="Logo" style="width: 180px; margin-bottom: 20px;">
 def main():
     # Header ve tablar için gerekli HTML kodu
     st.markdown(
@@ -105,54 +104,6 @@ def main():
     #     secondary_color = "#FFFFFF"
     #     accent_color = "#F3F2F1"
         st.subheader("Algorizm aka FREGX Kim?")
-    #     # Tanıtım içeriği
-    #     st.write("""
-    #     Algorizm aka FREGX, bu uygulamanın arkasındaki zeki algoritma ve yapay zeka sistemidir. 
-    #     FREGX, kullanıcıların tariflerini analiz ederek zorluk seviyesini tahmin eder ve kullanıcılara uygun öneriler sunar.
-    #     Bu sistem sayesinde kullanıcılar daha kolay ve keyifli bir yemek deneyimi yaşayabilirler.
-
-    #     FREGX'in geliştirilmesi, lezzetli yemek tariflerini keşfetmek isteyen herkes için bir rehber olmayı amaçlamaktadır.
-    #     """)
-
-    #     # Resimler ve bilgiler
-    #     st.markdown(
-    #         """
-    #         <div style="padding:20px;border-radius:10px;text-align:center;">
-    #             <div style="display:flex; justify-content: space-between;">
-    #                 <div style="flex: 0 0 20%; text-align: center;">
-    #                     <img src="https://image.freepik.com/free-vector/data-analysis-concept-illustration_114360-1060.jpg" alt="FREGX" style="width: 100%; border-radius:10px;">
-    #                     <p style="color:white;"><h4>Türker UZUN</h4></p>
-    #                     <p style="color:white;">Veri Bilimci</p>
-    #                 </div>
-    #                 <div style="flex: 0 0 20%; text-align: center;">
-    #                     <img src="https://image.freepik.com/free-vector/data-analysis-concept-illustration_114360-1060.jpg" alt="FREGX" style="width: 100%; border-radius:10px;">
-    #                     <p style="color:white;"><h4>İlhami DEMİRCİ</h4></p>
-    #                     <p style="color:white;">Veri Analisti</p>
-    #                 </div>
-    #                 <div style="flex: 0 0 20%; text-align: center;">
-    #                     <img src="https://image.freepik.com/free-vector/data-analysis-concept-illustration_114360-1060.jpg" alt="FREGX" style="width: 100%; border-radius:10px;">
-    #                     <p style="color:white;"><h4>Vildan ÇİMEN</h4></p>
-    #                     <p style="color:white;">Makine Öğrenimi Mühendisi</p>
-    #                 </div>
-    #                 <div style="flex: 0 0 20%; text-align: center;">
-    #                     <img src="https://image.freepik.com/free-vector/data-analysis-concept-illustration_114360-1060.jpg" alt="FREGX" style="width: 100%; border-radius:10px;">
-    #                     <p style="color:white;"><h4>Mahmut KEÇECİ</h4></p>
-    #                     <p style="color:white;">Veri Mimarısı</p>
-    #                 </div>
-    #             </div>
-    #         </div>
-    #         """,
-    #         unsafe_allow_html=True
-    #     )
-
-    #     # Footer
-    #     st.markdown(
-    #         f"""
-    #         <hr>
-    #         <p style="color:{primary_color};text-align:center;">© 2024 Algorizm - Yemek Tarifi Zorluk Tahmin ve Öneri Sistemi</p>
-    #         """,
-    #         unsafe_allow_html=True
-    #     )
 
 def tab1_zorluk_tahmin():
     # CSS ile sütunlar arasına padding eklemek için stil
